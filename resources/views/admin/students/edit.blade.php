@@ -5,6 +5,7 @@
 @endsection
 
 @section('modal-body')
+hahahahah
 <ul class="nav nav-tabs" id="add_student_tab" role="tablist">
 	<li role="presentation" class="active"><a href="#e_personal" id="e_personal-tab" role="tab" data-toggle="tab" aria-controls="e_personal" aria-expanded="true">e_Personal Information</a></li>
 	<li role="presentation" class=""><a href="#e_family_members" role="tab" id="e_family_members-tab" data-toggle="tab" aria-controls="e_family_members" aria-expanded="false">Family Members</a></li>
