@@ -15,23 +15,23 @@ class BaseRepository{
 
 
 
-    protected $auth;
-    protected $carbon;
-    protected $str;
-    protected $__dataType;
-    protected $cache;
+	protected $auth;
+	protected $carbon;
+	protected $str;
+	protected $__dataType;
+	protected $cache;
 
 
 
-    public function __construct(){
-        
-        $this->auth = auth();
-        $this->carbon = App::make(Carbon::class);
-        $this->str = App::make(Str::class);
-        $this->__dataType = App::make(__dataType::class);
-        $this->cache = App::make(Cache::class);
-        
-    }
+	public function __construct(){
+
+		$this->auth = auth();
+		$this->carbon = App::make(Carbon::class);
+		$this->str = App::make(Str::class);
+		$this->__dataType = App::make(__dataType::class);
+		$this->cache = App::make(Cache::class);
+
+	}
 
 
 

@@ -33,6 +33,8 @@ class StudentRepository extends BaseRepository {
 		$s->middle_name = $r->middle_name;
 		$s->grade_level_applied = $r->grade_level_applied;
 		$s->sy = $r->sy;
+        $s->email = $r->email;
+        $s->phone = $r->phone;
 		$s->region = $r->region;
 		$s->province = $r->province;
 		$s->municipality = $r->municipality;
@@ -51,4 +53,34 @@ class StudentRepository extends BaseRepository {
 		$s = $this->student->where('id','=',$id)->first();
 		return $s;
 	}
+
+	public function update($request,$id){
+	    $s = $this->find($id);
+	    $r = $request;
+        $s->last_name = $r->last_name;
+        $s->first_name = $r->first_name;
+        $s->middle_name = $r->middle_name;
+        $s->grade_level_applied = $r->grade_level_applied;
+        $s->sy = $r->sy;
+        $s->email = $r->email;
+        $s->phone = $r->phone;
+        $s->region = $r->region;
+        $s->province = $r->province;
+        $s->municipality = $r->municipality;
+        $s->barangay = $r->barangay;
+        $s->address = $r->address;
+        $s->birthday = $r->birthday;
+        $s->created_at = $this->carbon->now();
+        $s->user_created = $this->auth->guard('admin')->user()->slug;
+        if(!$s->save()){
+            abort(500,'Error saving in database');
+        }
+        return $s;
+    }
+
+    public function destroy($id){
+	    $s = $this->find($id);
+	    $s->delete();
+	    return $s;
+    }
 }

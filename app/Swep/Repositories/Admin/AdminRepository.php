@@ -11,7 +11,7 @@ use App\Models\Admin;
 use Auth;
 use Hash;
 use DB;
-
+use Session;
 class AdminRepository extends BaseRepository implements AdminInterface {
     
 
@@ -125,10 +125,11 @@ class AdminRepository extends BaseRepository implements AdminInterface {
         
         $admin_tree = ['aaa'=> 'a'];
 
+        $functions = [];
         
         $admin_tree = $this->menu_repo->allAdminMenusTree();
         $current_admin_tree = [];
-
+        Session::forget('functions');
         if($admin->admin_functions->count() > 0){
 
             foreach ($admin->admin_functions as $admin_function) {
@@ -136,30 +137,15 @@ class AdminRepository extends BaseRepository implements AdminInterface {
                     $current_admin_tree[$admin_function->masterFunction->menu->label][$admin_function->masterFunction->menu->menu_name]['functions'][$admin_function->masterFunction->function_name]['function_obj'] = $admin_function->masterFunction;
 
                     $current_admin_tree[$admin_function->masterFunction->menu->label][$admin_function->masterFunction->menu->menu_name]['menu_obj'] = $admin_function->masterFunction->menu;
-                }
-                
 
+                    $functions[$admin_function->masterFunction->function_route] = 1;
+                }
             }
+
+            Session::put('functions',$functions);
         }
 
-        // if($admin->admin_functions->count() > 0){
 
-        //     foreach ($admin->admin_functions as $function) {
-        //         //$menu_object = $function->masterFunction->menu;
-        //         $function_object = $function->masterFunction;
-        //         $admin_tree[$function_object->menu->label][$function_object->menu->menu_name][$function_object->function_name] = [
-        //             'function_obj' => $function_object
-        //         ];
-        //         $admin_tree[$function_object->menu->label][$function_object->menu->menu_name]['menu_obj'] = $function_object->menu;
-
-
-
-
-
-        //         //$admin_tree[$function->function_slug] = 1;
-        //     }
-        // }
-        //$result = array_intersect($admin_tree, $current_admin_tree);
        
         return $current_admin_tree;
         

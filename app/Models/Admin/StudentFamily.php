@@ -45,8 +45,8 @@ class StudentFamily extends Model{
     // 	return $this->belongsTo('App\Models\Admin','user_id','user_id');
    	// }
 
-    public function functions(){
-        return $this->hasMany('App\Models\Admin\Functions', 'menu_slug', 'slug');
+    public function student(){
+        return $this->belongsTo('App\Models\Admin\Student', 'id', 'student_id');
     }
 
 

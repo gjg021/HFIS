@@ -31,7 +31,7 @@ class StudentFormRequest extends FormRequest{
             // 'password'=>'sometimes|required|string|min:6|max:45|confirmed|same:password_confirmation',
             // 'password_confirmation'=>'sometimes|required|string|min:6|max:45',
             'email'=>'required|string|email|max:45',
-            
+            'phone'=>'required|string|phone|max:45',
 
         ];
 

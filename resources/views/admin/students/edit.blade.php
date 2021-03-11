@@ -1,4 +1,4 @@
-@extends('admin-layouts.modal-content',['form_id'=>'edit_student_form','slug'=> '1'])
+@extends('admin-layouts.modal-content',['form_id'=>'edit_student_form','slug'=> $student->id])
 
 @section('modal-header')
 {{$student->last_name}}, {{$student->first_name}} | <span class="label label-primary">EDIT</span>
@@ -46,61 +46,66 @@
       	<br>
 			<div class="col-md-12">
 				<button type="button" class="btn btn-success btn-xs pull-right add_row_btn"><i class="fa fa-plus"></i> Add row</button>
-				<table id="add_family_table" class="table table-condensed table-striped">
+
+				<table id="e_add_family_table" class="table table-condensed table-striped">
 					<thead>
 						<tr>
 							<th>Relationship</th>
 							<th>Name</th>
 							<th>Contact</th>
-							<th>Other</th>
+							<th>Birthday</th>
 							<th>Educ. Att.</th>
 							<th>Occupation</th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-				        <tr>
-				          <td style="vertical-align: middle;">
-				          	{!! __form::s_select_sm('family_relationship[]',[
-				          		'Father'=>'Father',
-				          		'Mother'=>'Mother',
-				          		'Guardian (Male)'=>'Male_Guardian',
-				          		'Guardian (Female)'=>'Female_Guardian',
-				          		'Brother'=>'Brother',
-				          		'Sister'=>'Sister',
-				          	],'','') !!}
-				          </td>
-				          <td  style="vertical-align: middle;">	{!! __form::s_input_sm('family_last_name[]', 'text','','Last name', 'style="margin-bottom:3px"') !!}
-				          		{!! __form::s_input_sm('family_first_name[]', 'text','','First name', 'style="margin-bottom:3px"') !!}
-				          		{!! __form::s_input_sm('family_middle_name[]', 'text','','Middle name', 'style="margin-bottom:3px"') !!}
-				          </td>
-				          <td style="vertical-align: middle;">
-				          	
-				          		{!! __form::s_input_sm('family_phone[]', 'text','','Phone number','style="margin-bottom:3px"') !!}
-				          		{!! __form::s_input_sm('family_email[]', 'text','','Email address') !!}
-				          	
-				          </td>
-				          <td  style="vertical-align: middle;">
-				          	{!! __form::s_input_sm('family_birthday[]', 'date','','') !!}</td>
-				          <td  style="vertical-align: middle;">
-				          	{!! __form::s_select_sm('family_educ_att[]',[
-				          		'Elementary Level'=>'Elementary Level',
-				          		'Elementary Graduate'=>'Elementary Graduate',
-				          		'High School Level'=>'High School Level',
-				          		'High School Graduate'=>'High School Graduate',
-				          		'College Level'=>'College Level',
-				          		'College Graduate'=>'College Graduate',
-				          		'Post Graduate'=>'Post Graduate',
-				          	],'','') !!}
-				          </td>
-				          <td  style="vertical-align: middle;">
-				          	{!! __form::s_input_sm('family_occupation[]', 'text','','Occupation','style="margin-bottom:3px"','') !!}
-				          	{!! __form::s_input_sm('family_salary[]', 'number','','Salary','') !!}
-				          </td>
-				          <td  style="vertical-align: middle;">
-				          	<button type="button" class="btn btn-sm btn-danger remove_family_btn"><i class="fa fa-times"></i></button>
-				          </td>
-				        </tr>
+                        @if($student->families->count() > 0)
+                            @foreach($student->families as $family_member)
+                                <tr>
+                                  <td style="vertical-align: middle;">
+                                    {!! __form::s_select_sm('family_relationship[]',[
+                                        'Father'=>'Father',
+                                        'Mother'=>'Mother',
+                                        'Guardian (Male)'=>'Male_Guardian',
+                                        'Guardian (Female)'=>'Female_Guardian',
+                                        'Brother'=>'Brother',
+                                        'Sister'=>'Sister',
+                                    ],$family_member->relationship,'') !!}
+                                  </td>
+                                  <td  style="vertical-align: middle;">	{!! __form::s_input_sm('family_last_name[]', 'text',$family_member->last_name,'Last name', 'style="margin-bottom:3px"') !!}
+                                        {!! __form::s_input_sm('family_first_name[]', 'text',$family_member->first_name,'First name', 'style="margin-bottom:3px"') !!}
+                                        {!! __form::s_input_sm('family_middle_name[]', 'text',$family_member->middle_name,'Middle name', 'style="margin-bottom:3px"') !!}
+                                  </td>
+                                  <td style="vertical-align: middle;">
+
+                                        {!! __form::s_input_sm('family_phone[]', 'text',$family_member->phone,'Phone number','style="margin-bottom:3px"') !!}
+                                        {!! __form::s_input_sm('family_email[]', 'text',$family_member->email,'Email address') !!}
+
+                                  </td>
+                                  <td  style="vertical-align: middle;">
+                                    {!! __form::s_input_sm('family_birthday[]', 'date',$family_member->birthday,'') !!}</td>
+                                  <td  style="vertical-align: middle;">
+                                    {!! __form::s_select_sm('family_educ_att[]',[
+                                        'Elementary Level'=>'Elementary Level',
+                                        'Elementary Graduate'=>'Elementary Graduate',
+                                        'High School Level'=>'High School Level',
+                                        'High School Graduate'=>'High School Graduate',
+                                        'College Level'=>'College Level',
+                                        'College Graduate'=>'College Graduate',
+                                        'Post Graduate'=>'Post Graduate',
+                                    ],$family_member->educ_att,'') !!}
+                                  </td>
+                                  <td  style="vertical-align: middle;">
+                                    {!! __form::s_input_sm('family_occupation[]', 'text',$family_member->occupation,'Occupation','style="margin-bottom:3px"','') !!}
+                                    {!! __form::s_input_sm('family_salary[]', 'number',$family_member->salary,'Salary','') !!}
+                                  </td>
+                                  <td  style="vertical-align: middle;">
+                                    <button type="button" class="btn btn-sm btn-danger remove_family_btn"><i class="fa fa-times"></i></button>
+                                  </td>
+                                </tr>
+                            @endforeach
+                        @endif
 				      </tbody>
 				</table>
 			</div>
@@ -111,7 +116,7 @@
 
 
 @section('modal-footer')
-
+<button class="btn btn-primary" type="submit"><i class="fa fa-check"></i> Save</button>
 @endsection
 
 

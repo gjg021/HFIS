@@ -333,7 +333,7 @@ function delete_item(route_uri, btn, datatable){
                     }
                 },
                 close: function () {
-                    $("#menus_table #"+slug).removeClass('danger');
+                    $("#"+table_id+" #"+slug).removeClass('danger');
                 }
             }
         });

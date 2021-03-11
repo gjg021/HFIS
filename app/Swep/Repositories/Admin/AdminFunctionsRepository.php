@@ -111,4 +111,16 @@ class AdminFunctionsRepository extends BaseRepository implements AdminFunctionsI
 
     }
 
+    public function currentAdminFunctions(){
+        $admin = Auth::guard('admin')->user()->slug;
+        $functions = $this->admin_functions->where('admin_slug','=',$admin )->get();
+        $fn = [];
+        foreach ($functions as $function) {
+            $fn[$function->masterFunction->function_route] = 1;
+        }
+        return $fn;
+
+    }
+
+
 }

@@ -40,9 +40,9 @@ class AdminFunctions extends Model{
     // 	return $this->belongsTo('App\Models\Admin','user_id','user_id');
    	// }
 
-    // public function functions(){
-    //     return $this->hasMany('App\Models\Admin\Functions', 'menu_slug', 'slug');
-    // }
+     public function function(){
+         return $this->belongsTo('App\Models\Admin\Functions', 'slug', 'function_slug');
+     }
 
 
     // public function submenu() {

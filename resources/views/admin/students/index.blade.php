@@ -360,5 +360,30 @@
 
 		})
 	})
+
+	$("body").on('submit','#edit_student_form',function(e){
+		e.preventDefault();
+		form = $(this);
+		loading_btn(form);
+		uri = "{{route('admin.students.update','ids')}}";
+		uri = uri.replace('ids',form.attr('data'));
+		$.ajax({
+			url: uri,
+			data: form.serialize(),
+			type: 'PATCH',
+			success: function (res) {
+				succeed(form,true,true);
+				console.log(res);
+			},
+			error: function (res) {
+				errored(form,res)
+			}
+		})
+	})
+	$("body").on('click','.delete_student_btn', function () {
+		btn = $(this);
+		uri = "{{route('admin.students.destroy','slugg')}}";
+		delete_item(uri,btn,students_tbl);
+	})
 </script>
 @endsection

@@ -94,3 +94,7 @@ div[data-notify="container"] > [data-notify="title"]{
 .modal-xl{
   width: 80%;
 }
+
+dt{
+    font-weight: bold !important;
+}

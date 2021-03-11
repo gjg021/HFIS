@@ -91,6 +91,7 @@ Route::group(['as' => 'auth.'], function () {
 		Route::get('shipping-permits', 'Shared\ShippingPermitController@index')->name('shipping-permits.index');
 
 		Route::resource('students','Admin\StudentController');
+		Route::resource('enrollees','Admin\EnrolleeController');
 	});
 
 	Route::get('admin/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
@@ -119,11 +120,7 @@ Route::group(['as' => 'auth.'], function () {
 
 
 /** Testing **/
-Route::get('/dashboard/test', function(){
-
-	//return dd(Illuminate\Support\Str::random(16));
-
-});
+//Route::get('/test','App\Swep\Repositories\Admin\AdminFunctionsRepository@currentUserFunction()');
 
 Route::get('/receive', function(){
 	return view('test.receive');
