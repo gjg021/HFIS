@@ -90,6 +90,7 @@ Route::group(['as' => 'auth.'], function () {
 
 		Route::get('shipping-permits', 'Shared\ShippingPermitController@index')->name('shipping-permits.index');
 
+		Route::resource('students','Admin\StudentController');
 	});
 
 	Route::get('admin/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');

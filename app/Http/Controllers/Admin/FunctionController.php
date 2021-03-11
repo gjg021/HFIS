@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Swep\Services\Admin\MenuService;
 use App\Http\Requests\Admin\FunctionFormRequest;
 use App\Swep\Services\Admin\FunctionService;
-use Datatables;
+use DataTables;
 class FunctionController extends Controller
 {
     /**

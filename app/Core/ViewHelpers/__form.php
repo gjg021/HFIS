@@ -4,7 +4,7 @@ namespace App\Core\ViewHelpers;
 
 use App\Core\Helpers\__sanitize;
 use App\Core\Helpers\__dataType;
-
+use Carbon;
 
 class __form{
 
@@ -389,6 +389,79 @@ class __form{
           '.$options.'
         </select>  
       </div>';
+    }
+
+
+    public static function a_select_sy($length, $label, $name, $array , $value, $attr, $class = null ){
+      if($class != null){
+        $fg_class = "fg-".$class;
+        $input_class = "input-".$class;
+      }else{
+        $fg_class = '';
+        $input_class = '';
+      }
+      $year_now =Carbon::now()->year;
+      $start_year = $year_now-20;
+      $end_year =$year_now+5;
+      
+      
+      while ($start_year <= $end_year) {
+        $arr[$start_year]= $start_year;
+
+        $start_year++;
+      }
+      //return print_r($arr);
+      $options = '';
+      foreach ($arr as $option => $val) {
+        $add = $val+1;
+        if($value == ''){
+          if($val == $year_now){
+            $options = $options.'<option value="'.$val.'" selected>'.$option.'-'.$add.'</option>';
+          }
+        }
+        if($value === $val){
+          $options = $options.'<option value="'.$val.'" selected>'.$option.'-'.$add.'</option>';
+        }else{
+          $options = $options.'<option value="'.$val.'">'.$option.'-'.$add.'</option>';
+        }
+      }
+
+      return '<div class="form-group col-md-'.$length.' '.$fg_class.'" id="fg-'.$name.'">
+        <label for="is_menu">'.$label.'</label>
+        <select name="'.$name.'" class="form-control '.$input_class.'" '.$attr.'">
+          <option value="">Select</option>
+          '.$options.'
+        </select>  
+      </div>';
+    }
+
+    public static function s_input_sm($name,$type,$value,$placeholder,$attr=""){
+      return '<input class="form-control input-sm" type="'.$type.'" value="'.$value.'" name="'.$name.'" placeholder="'.$placeholder.'" type="text" '.$attr.'>';
+    }
+
+
+    public static function s_select_sm($name, $array , $value, $attr, $class = null ){
+      if($class != null){
+        $fg_class = "fg-".$class;
+        $input_class = "input-".$class;
+      }else{
+        $fg_class = '';
+        $input_class = '';
+      }
+
+      $options = '';
+      foreach ($array as $option => $val) {
+        if($value === $val){
+          $options = $options.'<option value="'.$val.'" selected>'.$option.'</option>';
+        }else{
+          $options = $options.'<option value="'.$val.'">'.$option.'</option>';
+        }
+      }
+
+      return '<select name="'.$name.'" class="form-control input-sm '.$input_class.'" '.$attr.'">
+          <option value="">Select</option>
+          '.$options.'
+        </select>';
     }
 
 

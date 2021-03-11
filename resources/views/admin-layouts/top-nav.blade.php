@@ -2,9 +2,9 @@
       <!-- Logo -->
       <a href="../../index2.html" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>SRA</b></span>
+        <span class="logo-mini"><b>HFHS</b></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>SWEP</b> OPP</span>
+        <span class="logo-lg"><b>HFHS</b> IS</span>
       </a>
       <!-- Header Navbar: style can be found in header.less -->
       <nav class="navbar navbar-static-top">
@@ -105,7 +105,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="{{asset('images/avatar.jpeg')}}" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs">{{Auth::guard('admin')->user()->first_name}} {{Auth::guard('admin')->user()->last_name}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -113,7 +113,7 @@
                 <img src="{{asset('images/avatar.jpeg')}}" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - Web Developer
+                  {{Auth::guard('admin')->user()->first_name}} {{Auth::guard('admin')->user()->last_name}} - {{Auth::guard('admin')->user()->position}}
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>

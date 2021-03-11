@@ -96,7 +96,8 @@ class FunctionService extends BaseService{
             $req = collect();
             $req->menu_slug = $request->menu_slug;
             $req->function_name = $name;
-
+            $req->function_icon = '';
+            $req->function_belongs_to = 'admin';
             $req->function_label = '';
             $req->function_is_nav = 0;
             if($route == 'index'){
