@@ -106,4 +106,7 @@ class StudentService extends BaseService{
 	    return $this->student_repo->find($id);
     }
 
+    public function findByName($name){
+	    return $this->student_repo->findByName($name);
+    }
 }

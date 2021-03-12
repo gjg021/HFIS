@@ -29,14 +29,9 @@
 					<thead>
 						<tr>
 							<th>Fullname</th>
-							<th>Birthday</th>
-							<th>Age</th>
-							<th>Address</th>
-							<th>Barangay</th>
-							<th>City</th>
-							<th>Phone</th>
-							<th>Email</th>
 							<th>Student ID</th>
+							<th>Barangay, City</th>
+							<th>Phone & Email</th>
 							<th style="width: 100px">Action</th>
 						</tr>
 					</thead>
@@ -129,8 +124,8 @@
 									          	{!! __form::s_select_sm('family_relationship[]',[
 									          		'Father'=>'Father',
 									          		'Mother'=>'Mother',
-									          		'Guardian (Male)'=>'Male_Guardian',
-									          		'Guardian (Female)'=>'Female_Guardian',
+									          		'Guardian (Male)'=>'Male Guardian',
+									          		'Guardian (Female)'=>'Female Guardian',
 									          		'Brother'=>'Brother',
 									          		'Sister'=>'Sister',
 									          	],'','') !!}
@@ -252,16 +247,11 @@
 			"serverSide": true,
 			"ajax" : '{{ route("admin.students.index") }}',
 			"columns": [
-			  { "data": "fullname" },
-			  { "data": "birthday" },
-			  { "data": "age" },
-			  { "data": "address" },
-			  { "data": "barangay" },
-			  { "data": "municipality" },
-			  { "data": "phone" },
-			  { "data": "email" },
-			  { "data": "id" },
-			  { "data": "action" }
+			  	{ "data": "fullname" },
+				{ "data": "id" },
+			  	{ "data": "barangay_municipality" },
+			  	{ "data": "phone_email" },
+			  	{ "data": "action" }
 			],
 			// buttons: [
 			//     'copy', 'excel', 'pdf'
@@ -272,7 +262,7 @@
 			  "visible" : true
 			},
 			{
-			  "targets" : [2,8,9],
+			  "targets" : [3,4],
 			  "orderable" : false,
 			  "class" : 'action'
 			},

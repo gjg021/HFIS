@@ -67,8 +67,8 @@
                                     {!! __form::s_select_sm('family_relationship[]',[
                                         'Father'=>'Father',
                                         'Mother'=>'Mother',
-                                        'Guardian (Male)'=>'Male_Guardian',
-                                        'Guardian (Female)'=>'Female_Guardian',
+                                        'Guardian (Male)'=>'Male Guardian',
+                                        'Guardian (Female)'=>'Female Guardian',
                                         'Brother'=>'Brother',
                                         'Sister'=>'Sister',
                                     ],$family_member->relationship,'') !!}

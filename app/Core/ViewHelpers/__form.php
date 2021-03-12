@@ -441,13 +441,7 @@ class __form{
 
 
     public static function s_select_sm($name, $array , $value, $attr, $class = null ){
-      if($class != null){
-        $fg_class = "fg-".$class;
-        $input_class = "input-".$class;
-      }else{
-        $fg_class = '';
-        $input_class = '';
-      }
+
 
       $options = '';
       foreach ($array as $option => $val) {
@@ -458,7 +452,7 @@ class __form{
         }
       }
 
-      return '<select name="'.$name.'" class="form-control input-sm '.$input_class.'" '.$attr.'">
+      return '<select name="'.$name.'" class="form-control input-sm '.$class.'" '.$attr.'">
           <option value="">Select</option>
           '.$options.'
         </select>';

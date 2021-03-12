@@ -8,7 +8,7 @@ use App\Swep\BaseClasses\Admin\BaseRepository;
 use App\Models\Admin\Student;
 
 use Auth;
-
+use DB;
 class StudentRepository extends BaseRepository {
 
 	protected $student;
@@ -82,5 +82,20 @@ class StudentRepository extends BaseRepository {
 	    $s = $this->find($id);
 	    $s->delete();
 	    return $s;
+    }
+
+    public function findByName($name){
+	    $students = $this->student->select('id',DB::raw('CONCAT(last_name, ", ", first_name, " ", middle_name) as fullname'))
+            ->where('last_name','LIKE','%'.$name.'%')
+            ->orWhere('first_name','LIKE','%'.$name.'%')
+            ->orWhere('middle_name','LIKE','%'.$name.'%')
+            ->get();
+        $return = [];
+	    if($students->count() > 0){
+	        foreach ($students as $key => $student){
+                array_push($return,['id'=> $student->id,'name'=> $student->fullname]);
+            }
+        }
+	    return $return;
     }
 }

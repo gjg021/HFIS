@@ -49,3 +49,4 @@
 
 
 <script type="text/javascript" src="{{asset('template/plugins/jquery-confirm/dist/jquery-confirm.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('template/plugins/typeahead/js/bootstrap-typeahead.min.js')}}"></script>

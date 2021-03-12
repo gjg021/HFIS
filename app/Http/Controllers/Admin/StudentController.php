@@ -44,6 +44,7 @@ class StudentController extends Controller
                                     </button>';
                     }
 
+
                     $button = $button.'</div>';
 
 
@@ -57,6 +58,12 @@ class StudentController extends Controller
                 })
                 ->editColumn('age', function($data){
                     return Carbon::parse($data->birthday)->age;
+                })
+                ->editColumn('phone_email', function($data){
+                    return $data->phone.' | '. $data->email;
+                })
+                ->editColumn('barangay_municipality', function($data){
+                    return $data->barangay.', '. $data->municipality;
                 })
                 ->setRowAttr([])
                 ->escapeColumns([])

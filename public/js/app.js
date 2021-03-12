@@ -273,6 +273,11 @@ function errored(target_form,response){
         notify_custom('Page does not exist or you are not allowed to make this action', 'danger');
     }
 
+    if(response.status == 501){
+        console.log(response);
+        notify_custom(response.responseJSON.message, 'warning');
+    }
+
     remove_loading_btn(target_form);
 }
 
