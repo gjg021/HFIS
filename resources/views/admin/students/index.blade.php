@@ -30,8 +30,9 @@
 						<tr>
 							<th>Fullname</th>
 							<th>Student ID</th>
-							<th>Barangay, City</th>
-							<th>Phone & Email</th>
+
+							<th>Status</th>
+							<th>Remarks</th>
 							<th style="width: 100px">Action</th>
 						</tr>
 					</thead>
@@ -249,9 +250,9 @@
 			"columns": [
 			  	{ "data": "fullname" },
 				{ "data": "id" },
-			  	{ "data": "barangay_municipality" },
-			  	{ "data": "phone_email" },
-			  	{ "data": "action" }
+			  	{ "data": "status" },
+				{ "data": "remarks" },
+				{ "data": "action" }
 			],
 			// buttons: [
 			//     'copy', 'excel', 'pdf'
@@ -262,7 +263,7 @@
 			  "visible" : true
 			},
 			{
-			  "targets" : [3,4],
+			  "targets" : [3],
 			  "orderable" : false,
 			  "class" : 'action'
 			},

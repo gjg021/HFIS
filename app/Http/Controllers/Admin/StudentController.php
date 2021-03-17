@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Admin\Student;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Swep\Services\Admin\StudentService;
@@ -22,10 +23,13 @@ class StudentController extends Controller
     public function index()
     {
 
+
         if(request()->ajax()){
             $data = request();
+            $students = Student::get();
+            $sy = 2021;
 
-            return Datatables::of($this->student_service->fetchTable($data))
+            return Datatables::of($students)
                 ->addColumn('action', function($data){
                     $button = '<div class="btn-group">';
                     if(isset(session('functions')['admin.students.show'])) {
@@ -59,8 +63,26 @@ class StudentController extends Controller
                 ->editColumn('age', function($data){
                     return Carbon::parse($data->birthday)->age;
                 })
-                ->editColumn('phone_email', function($data){
-                    return $data->phone.' | '. $data->email;
+                ->editColumn('status', function($data) use ($sy) {
+                    if($data->enrollments()->where('sy', $sy)->exists()){
+//
+                        $enrollments = $data->enrollments()->orderBy('date_application')->first();
+                        if($enrollments->status == 1){
+                            return "Enrolled";
+                        }
+                        if($enrollments->payments()->exists()){
+                            $payments = $enrollments->payments()->orderBy('date')->first();
+
+                            $data->remarks = 'Paid: '.$payments->date;
+                            return 'Pending Admission : Grade '.$enrollments->grade.' SY: '.$enrollments->sy.'-'.($enrollments->sy+1);
+                        }
+                        $data->remarks = 'Assesed: '.$enrollments->date_application;
+                        return 'Pending Payment : Grade '.$enrollments->grade.' SY: '.$enrollments->sy.'-'.($enrollments->sy+1);;
+                    }
+
+                })
+                ->editColumn('remarks',function ($data){
+                    return $data->remarks;
                 })
                 ->editColumn('barangay_municipality', function($data){
                     return $data->barangay.', '. $data->municipality;

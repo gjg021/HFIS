@@ -3,7 +3,7 @@
 @section('content')
     <div id="cont">
         <section class="content-header">
-            <h1> Enroll</h1>
+            <h1> Assessment</h1>
         </section>
         <section class="content">
             <form id="enrollment_form">
@@ -141,8 +141,6 @@
                                                                             $payables_with_amount[$payable_all->payable] = $payable_all->amount;
                                                                             //array_push($select,$payable->payable);
                                                                         }
-
-
                                                                     @endphp
 
                                                                     @if(!empty($payables))
@@ -334,7 +332,7 @@
                                 <div class="panel-footer">
 
                                     <div class="clearfix">
-                                        <button class="btn btn-primary btn-sm pull-right" type="submit"><i class="fa fa-check"></i> Enroll</button>
+                                        <button class="btn btn-primary btn-sm pull-right" type="submit"><i class="fa fa-check"></i> Submit Assessment</button>
                                     </div>
                                 </div>
                             </div>

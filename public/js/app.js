@@ -378,3 +378,7 @@ function errored_modal(button,response){
         $(modal_id+" .modal-content").html($(".modal-404").html());
     });
 }
+
+function currencyFormat(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+}

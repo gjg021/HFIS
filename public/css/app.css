@@ -98,3 +98,7 @@ div[data-notify="container"] > [data-notify="title"]{
 dt{
     font-weight: bold !important;
 }
+
+.text-strong{
+    font-weight: bold !important;
+}

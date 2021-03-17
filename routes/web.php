@@ -92,6 +92,11 @@ Route::group(['as' => 'auth.'], function () {
 
 		Route::resource('students','Admin\StudentController');
 		Route::resource('enrollees','Admin\EnrolleeController');
+        Route::get('payments/assessed/add_payment_show','Admin\PaymentController@add_payment_show')->name('payments.assessed.add_payment_show');
+        Route::get('payments/assessed','Admin\PaymentController@assessed_index')->name('payments.assessed');
+
+		Route::resource('payments','Admin\PaymentController');
+
 	});
 
 	Route::get('admin/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
@@ -120,7 +125,7 @@ Route::group(['as' => 'auth.'], function () {
 
 
 /** Testing **/
-Route::get('admin/test','Admin\TestController@test');
+Route::get('admin/test','Admin\TestController@test')->name('admin.admins.test');
 
 Route::get('/receive', function(){
 	return view('test.receive');

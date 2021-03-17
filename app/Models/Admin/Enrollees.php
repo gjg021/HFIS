@@ -22,4 +22,17 @@ class Enrollees extends Model
 
 
     ];
+
+
+    public function student(){
+        return $this->belongsTo('App\Models\Admin\Student','student_id','id');
+    }
+
+    public function account_payables(){
+        return $this->hasMany('App\Models\Admin\EnrolleesAccounts','student_id','student_id');
+    }
+
+    public function payments(){
+        return $this->hasMany('App\Models\Admin\EnrolleesPayments','enrollee_id','id');
+    }
 }

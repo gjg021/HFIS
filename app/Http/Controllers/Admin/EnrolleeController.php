@@ -20,7 +20,7 @@ class EnrolleeController extends Controller
     }
 
     public function index(){
-        return 'inmdex';
+        return view('admin.enrollees.index');
     }
 
     public function create(){

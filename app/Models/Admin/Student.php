@@ -54,7 +54,9 @@ class Student extends Model{
         return $this->hasMany('App\Models\Admin\StudentFamily', 'student_id', 'id');
     }
 
-
+    public function enrollments(){
+        return $this->hasMany('App\Models\Admin\Enrollees','student_id','id');
+    }
     // public function submenu() {
     // 	return $this->hasMany('App\Models\Submenu','menu_id','menu_id');
    	// }
