@@ -120,7 +120,7 @@ Route::group(['as' => 'auth.'], function () {
 
 
 /** Testing **/
-//Route::get('/test','App\Swep\Repositories\Admin\AdminFunctionsRepository@currentUserFunction()');
+Route::get('admin/test','Admin\TestController@test');
 
 Route::get('/receive', function(){
 	return view('test.receive');

@@ -47,7 +47,9 @@ class Functions extends Model{
         return $this->belongsTo('App\Models\Admin\Menu', 'menu_slug', 'slug');
     }
 
-
+    public function getAdmins(){
+        return $this->belongsToMany('App\Models\Admin', 'admin_functions','function_slug','admin_slug');
+    }
     // public function submenu() {
     // 	return $this->hasMany('App\Models\Submenu','menu_id','menu_id');
    	// }

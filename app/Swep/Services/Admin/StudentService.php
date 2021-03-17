@@ -21,8 +21,8 @@ class StudentService extends BaseService{
 
 	public function store($request){
 		
-		//return count($request->family_relationship);
-		if(count($request->family_relationship) < 2 ){
+
+		if(count($request->family_relationship) < 1 ){
 			abort(500, 'At least one family member is required');
 		}
 
@@ -59,7 +59,8 @@ class StudentService extends BaseService{
 	}
 
 	public function update($request,$id){
-        if(count($request->family_relationship) < 2 ){
+
+        if(count($request->family_relationship) < 1 ){
             abort(500, 'At least one family member is required');
         }
 

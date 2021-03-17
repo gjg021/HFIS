@@ -54,6 +54,10 @@ class Admin extends Authenticatable{
         return $this->hasMany('App\Models\Admin\AdminFunctions','admin_slug','slug');
     }
 
+    public function getFunction(){
+        return $this->belongsToMany('App\Models\Admin\Functions', 'admin_functions','admin_slug','function_slug','slug','slug');
+    }
+
     // public function admin_menu(){
     //     return $this->hasOneThrough(
     //         'App\Models\Admin\Menu',

@@ -322,7 +322,7 @@
 			type : 'POST',
 			data : formdata,
 			success: function(res){
-				succeed(form,true);
+				//succeed(form,true);
 				active = res.id;
 				students_tbl.draw();
 			},
