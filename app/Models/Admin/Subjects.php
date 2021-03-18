@@ -18,4 +18,9 @@ class Subjects extends Model
 
 
     ];
+
+
+    public function getEnrollments(){
+        return $this->belongsToMany('App\Models\Admin\Enrollees', 'enrollees_subjects','subject_id','enrollment_id','id','id');
+    }
 }

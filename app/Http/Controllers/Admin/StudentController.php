@@ -33,7 +33,9 @@ class StudentController extends Controller
                 ->addColumn('action', function($data){
                     $button = '<div class="btn-group">';
                     if(isset(session('functions')['admin.students.show'])) {
-                        $button = $button . '<button type="button" data="' . $data->id . '" class="btn btn-default btn-sm show_student_btn" data-toggle="modal" data-target="#show_student_modal" title="Edit" data-placement="top">
+                        $route = route('admin.students.show',$data->id);
+                        $route = "window.open('".$route."','_blank')";
+                        $button = $button . '<button onclick="'.$route.'" type="button" data="' . $data->id . '" class="btn btn-default btn-sm show_student_btn" data-toggle="modal" data-target="#show_student_modal" title="Edit" data-placement="top">
                                         <i class="fa fa-file-o"></i>
                                     </button>';
                     }
@@ -110,7 +112,8 @@ class StudentController extends Controller
     
     public function show($id)
     {
-        //
+        $student = Student::with(['enrollments', 'enrollments.account_payables', 'enrollments.payments','enrollments.subjects'])->find($id);
+        return view('admin.students.show')->with(['s' => $student]);
     }
 
   

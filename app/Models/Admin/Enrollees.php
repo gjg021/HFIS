@@ -29,10 +29,19 @@ class Enrollees extends Model
     }
 
     public function account_payables(){
-        return $this->hasMany('App\Models\Admin\EnrolleesAccounts','student_id','student_id');
+        return $this->hasMany('App\Models\Admin\EnrolleesAccounts','enrollment_id','id');
     }
 
     public function payments(){
         return $this->hasMany('App\Models\Admin\EnrolleesPayments','enrollee_id','id');
+    }
+
+    public function subjects(){
+        return $this->hasMany('App\Models\Admin\EnrolleesSubjects','enrollment_id','id');
+    }
+
+    public function getSubjects(){
+        return $this->belongsToMany('App\Models\Admin\Subjects', 'enrollees_subjects','enrollment_id','subject_id','id','subject_id')
+            ->withPivot(['qfirst','qsecond','qthird','qfourth']);
     }
 }

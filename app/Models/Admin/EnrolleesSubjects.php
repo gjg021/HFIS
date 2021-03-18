@@ -20,4 +20,6 @@ class EnrolleesSubjects extends Model
 
 
     ];
+
+    
 }

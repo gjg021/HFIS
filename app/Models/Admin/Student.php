@@ -3,12 +3,13 @@
 namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class Student extends Model{
 
   
-
+    use SoftDeletes;
     protected $table = 'students';
 
     protected $dates = ['created_at', 'updated_at'];
@@ -57,6 +58,8 @@ class Student extends Model{
     public function enrollments(){
         return $this->hasMany('App\Models\Admin\Enrollees','student_id','id');
     }
+
+
     // public function submenu() {
     // 	return $this->hasMany('App\Models\Submenu','menu_id','menu_id');
    	// }

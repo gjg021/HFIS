@@ -58,6 +58,7 @@ class EnrolleServicee extends BaseService
                         $req->amount = $request->amount[$key];
                         $req->student_id = $request->s;
                         $req->sy = $request->sy;
+                        $req->enrollment_id = $enrollment_id;
                         while ($month < $this->num_months){
                             $month++;
                             $req->pledge_month = $month;
@@ -72,6 +73,7 @@ class EnrolleServicee extends BaseService
                         $req->student_id = $request->s;
                         $req->sy = $request->sy;
                         $req->pledge_month = null;
+                        $req->enrollment_id = $enrollment_id;
                         $this->enrollee_acc_repo->store($req);
                     }
 

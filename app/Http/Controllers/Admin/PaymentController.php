@@ -67,7 +67,7 @@ class PaymentController extends Controller
 
     public function add_payment_show(){
         $id = request()->enrollment_id;
-        $enrollee = Enrollees::with('student')->find($id)->first();
+        $enrollee = Enrollees::with('student')->find($id);
         return view('admin.payments.add_payment')->with(['enrollee'=> $enrollee]);
     }
 
