@@ -5,9 +5,13 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Enrollees;
+use App\Models\Admin\EnrolleesAccounts;
 use App\Swep\Services\Admin\EnrolleServicee;
 use App\Swep\Services\Admin\StudentService;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
+use function foo\func;
 
 class EnrolleeController extends Controller
 {
@@ -17,9 +21,60 @@ class EnrolleeController extends Controller
     {
         $this->student_service = $student_service;
         $this->enrollee_service = $enrollee_service;
+        $this->enrollments = Enrollees::with(['student']);
     }
 
     public function index(){
+
+        if(request()->ajax()){
+            if(request()->draw > 0){
+                return DataTables::of($this->enrollments->get())
+                    ->editColumn('fullname',function($data){
+                        return $data->student->last_name.', '.$data->student->first_name.' '.$data->student->middle_name ;
+                    })
+                    ->editColumn('date_application',function($data){
+                        return date('M d, Y',strtotime($data->date_application));
+                    })
+                    ->editColumn('created_at',function($data){
+                        return date('M d, Y',strtotime($data->created_at));
+                    })
+                    ->editColumn('sy',function($data){
+                        return $data->sy.'-'.($data->sy+1);
+                    })
+                    ->editColumn('status',function($data){
+                        return 'status';
+                    })
+                    ->addColumn('action',function($data){
+                        $button = '<div class="btn-group">';
+                        if(isset(session('functions')['admin.enrollees.show'])) {
+                            $route = route('admin.students.show',$data->id);
+                            $route = "window.open('".$route."','_blank')";
+                            $button = $button . '<button type="button" data="' . $data->id . '" class="btn btn-default btn-sm show_enrollment_btn" data-toggle="modal" data-target="#show_enrollment_modal" title="Edit" data-placement="top">
+                                        <i class="fa fa-file-o"></i>
+                                    </button>';
+                        }
+                        if(isset(session('functions')['admin.enrollees.edit'])){
+                            $button = $button.'<button type="button" data="'.$data->id.'" class="btn btn-default btn-sm edit_enrollment_btn" data-toggle="modal" data-target="#edit_enrollment_modal" title="Edit" data-placement="top">
+                                        <i class="fa fa-edit"></i>
+                                    </button>';
+                        }
+                        if(isset(session('functions')['admin.students.destroy'])){
+                            $button = $button.'<button type="button" data="'.$data->id.'" class="btn btn-sm btn-danger delete_student_btn" data-toggle="tooltip" title="Delete" data-placement="top">
+                                        <i class="fa fa-trash"></i>
+                                    </button>';
+                        }
+
+
+                        $button = $button.'</div>';
+
+
+                        return $button;
+                    })
+                    ->escapeColumns([])
+                    ->setRowId('id')
+                    ->make(true);;
+            }
+        }
         return view('admin.enrollees.index');
     }
 
@@ -64,5 +119,38 @@ class EnrolleeController extends Controller
         $enroll = $this->enrollee_service->store($request);
 
         return $enroll;
+    }
+
+    public function show($id){
+        return $id;
+    }
+
+    public function edit($id){
+        $enrollment = $this->enrollments->find($id);
+        return view('admin.enrollees.edit')->with(['enrollment' => $enrollment]);
+    }
+
+    public function accounts_payable_table(){
+        if(request()->ajax()){
+
+            if(request()->draw > 0){
+                $enrollment_id = request()->enrollment_id;
+                return DataTables::of(EnrolleesAccounts::where('enrollment_id',$enrollment_id)->get())
+                    ->addColumn('action', function($data){
+                        $button = '<div class="btn-group">';
+                        $button = $button . '<button type="button" data="' . $data->id . '" class="btn btn-default btn-xs show_enrollment_btn" data-toggle="modal" data-target="#show_enrollment_modal" title="Edit" data-placement="top">
+                                        <i class="fa fa-file-o"></i> Edit
+                                    </button>';
+                        $button = $button.'<button type="button" data="'.$data->id.'" class="btn btn-xs btn-danger delete_student_btn" data-toggle="tooltip" title="Delete" data-placement="top">
+                                        <i class="fa fa-trash"></i> DEL
+                                    </button>';
+                        $button = $button.'</div>';
+
+                        return $button;
+                    })
+                    ->escapeColumns([])
+                    ->make(true);
+            }
+        }
     }
 }

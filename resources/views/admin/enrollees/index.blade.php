@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1> Enrolled <small>Students</small></h1>
+        <h1> Enrollments</h1>
     </section>
     <section class="content">
         <div class="panel panel-default">
@@ -29,8 +29,8 @@
                         <thead>
                         <tr>
                             <th>Fullname</th>
-                            <th>Date of Application</th>
-                            <th>Date of Assessment</th>
+                            <th>Application</th>
+                            <th>Assessment</th>
                             <th>Grade</th>
                             <th>SY</th>
                             <th>Status</th>
@@ -51,7 +51,8 @@
 @endsection
 
 @section('modals')
-
+{!! __html::blank_modal('show_enrollment_modal','lg') !!}
+{!! __html::blank_modal('edit_enrollment_modal','lg') !!}
 @endsection
 
 
@@ -62,14 +63,14 @@
         menus_tbl =  $("#enrollees_table").DataTable({
             "processing": true,
             "serverSide": true,
-            "ajax" : '{{ route("admin.payments.assessed") }}',
+            "ajax" : '{{ route("admin.enrollees.index") }}',
             "columns": [
                 { "data": "fullname" },
                 { "data": "date_application" },
                 { "data": "created_at" },
                 { "data": "grade" },
                 { "data": "sy" },
-                { "data": "total_amt" },
+                { "data": "status" },
                 { "data": "action" }
             ],
             // buttons: [
@@ -111,5 +112,41 @@
             }
         });
     });
+
+    $("body").on("click",".show_enrollment_btn",function(){
+        btn = $(this);
+        loading_modal(btn);
+        var id = btn.attr('data');
+        uri = '{{route("admin.enrollees.show", "ids")}}';
+        uri = uri.replace('ids',id);
+        $.ajax({
+            url: uri,
+            type:'GET',
+            success: function(res){
+                populate_modal(btn,res);
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        })
+    })
+
+    $("body").on("click",".edit_enrollment_btn", function () {
+        btn = $(this);
+        var id = btn.attr('data');
+        uri = '{{route("admin.enrollees.edit","ids")}}';
+        uri = uri.replace('ids',id);
+        loading_modal(btn);
+        $.ajax({
+            url : uri,
+            type: 'GET',
+            success: function (res) {
+                populate_modal(btn,res);
+            },
+            error : function (res) {
+                console.log(res);
+            }
+        })
+    })
 </script>
 @endsection

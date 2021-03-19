@@ -16,7 +16,7 @@ class EnrolleesPaymentsDetails extends Model
     ];
 
 
-    public function paymentDetails(){
-        return $this->belongsTo('App\Models\Admin\EnrolleesPayments','id','payment_id');
+    public function payment(){
+        return $this->belongsTo('App\Models\Admin\EnrolleesPayments','payment_id','id');
     }
 }

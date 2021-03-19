@@ -91,6 +91,7 @@ Route::group(['as' => 'auth.'], function () {
 		Route::get('shipping-permits', 'Shared\ShippingPermitController@index')->name('shipping-permits.index');
 
 		Route::resource('students','Admin\StudentController');
+        Route::get('enrollees/accounts_payable_table','Admin\EnrolleeController@accounts_payable_table')->name('enrollees.accounts_payable_table');
 		Route::resource('enrollees','Admin\EnrolleeController');
         Route::get('payments/assessed/add_payment_show','Admin\PaymentController@add_payment_show')->name('payments.assessed.add_payment_show');
         Route::get('payments/assessed','Admin\PaymentController@assessed_index')->name('payments.assessed');

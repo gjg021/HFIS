@@ -44,4 +44,8 @@ class Enrollees extends Model
         return $this->belongsToMany('App\Models\Admin\Subjects', 'enrollees_subjects','enrollment_id','subject_id','id','subject_id')
             ->withPivot(['qfirst','qsecond','qthird','qfourth']);
     }
+
+    public function getPaymentDetails(){
+        return $this->hasManyThrough('App\Models\Admin\EnrolleesPaymentsDetails','App\Models\Admin\EnrolleesPayments','enrollee_id','payment_id');
+    }
 }

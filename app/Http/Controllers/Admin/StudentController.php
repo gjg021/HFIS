@@ -50,7 +50,6 @@ class StudentController extends Controller
                                     </button>';
                     }
 
-
                     $button = $button.'</div>';
 
 
@@ -112,7 +111,7 @@ class StudentController extends Controller
     
     public function show($id)
     {
-        $student = Student::with(['enrollments', 'enrollments.account_payables', 'enrollments.payments','enrollments.subjects'])->find($id);
+        $student = Student::with(['enrollments', 'enrollments.account_payables', 'enrollments.payments','enrollments.subjects','enrollments.getPaymentDetails','enrollments.getPaymentDetails.payment'])->find($id);
         return view('admin.students.show')->with(['s' => $student]);
     }
 

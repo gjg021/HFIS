@@ -201,6 +201,7 @@
                                                                                Payments
                                                                             </div>
                                                                             <div class="panel-body">
+
                                                                                 <table class="table table-xtra-condensed">
                                                                                     <thead>
                                                                                     <tr>
@@ -211,20 +212,16 @@
                                                                                     </tr>
                                                                                     </thead>
                                                                                     <tbody>
-                                                                                    @if($enrollment->payments()->exists())
+                                                                                    @if($enrollment->getPaymentDetails()->exists())
                                                                                         @php($total_payments = 0)
-                                                                                        @foreach($enrollment->payments as $payment)
-                                                                                            @if($payment->paymentDetails()->exists())
-                                                                                                @foreach($payment->paymentDetails as $paymentDetail)
-                                                                                                    <tr>
-                                                                                                        <td>{{$payment->or_number}}</td>
-                                                                                                        <td>{{$payment->date}}</td>
-                                                                                                        <td>{{$paymentDetail->as_payment_for}}</td>
-                                                                                                        <td class=" text-right">{{number_format($paymentDetail->amount,2)}}</td>
-                                                                                                        @php($total_payments = $total_payments+ $paymentDetail->amount)
-                                                                                                    </tr>
-                                                                                                @endforeach
-                                                                                            @endif
+                                                                                        @foreach($enrollment->getPaymentDetails as $paymentDetail)
+                                                                                            <tr>
+                                                                                                <td>{{$paymentDetail->payment->or_number}}</td>
+                                                                                                <td>{{date('M d, Y',strtotime($paymentDetail->payment->date))}}</td>
+                                                                                                <td>{{$paymentDetail->as_payment_for}}</td>
+                                                                                                <td class=" text-right">{{number_format($paymentDetail->amount,2)}}</td>
+                                                                                                @php($total_payments = $total_payments+ $paymentDetail->amount)
+                                                                                            </tr>
 
 
                                                                                         @endforeach
